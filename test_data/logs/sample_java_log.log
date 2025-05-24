@@ -1,0 +1,67 @@
+2025-05-20 08:12:34,567 [main] INFO  jp.bank.app.BankingApplication - アプリケーションを起動しています
+2025-05-20 08:12:35,123 [main] INFO  jp.bank.app.ConfigLoader - 設定ファイルを読み込んでいます: /etc/bank/config.properties
+2025-05-20 08:12:35,456 [main] INFO  jp.bank.app.DatabaseConnector - データベース接続を初期化しています
+2025-05-20 08:12:36,789 [main] INFO  jp.bank.app.DatabaseConnector - データベース接続が確立されました
+2025-05-20 08:12:37,012 [main] INFO  jp.bank.app.SecurityManager - セキュリティマネージャーを初期化しています
+2025-05-20 08:12:37,345 [main] INFO  jp.bank.app.BankingApplication - アプリケーションの起動が完了しました
+2025-05-20 08:15:23,456 [http-nio-8080-exec-1] INFO  jp.bank.controller.LoginController - ユーザーログイン試行: user_id=tanaka_123
+2025-05-20 08:15:23,789 [http-nio-8080-exec-1] INFO  jp.bank.service.AuthenticationService - ユーザー認証を実行しています: tanaka_123
+2025-05-20 08:15:24,012 [http-nio-8080-exec-1] INFO  jp.bank.service.AuthenticationService - ユーザー認証に成功しました: tanaka_123
+2025-05-20 08:15:24,345 [http-nio-8080-exec-1] INFO  jp.bank.controller.LoginController - ログイン成功: user_id=tanaka_123
+2025-05-20 08:17:45,678 [http-nio-8080-exec-2] INFO  jp.bank.controller.AccountController - 口座残高照会: account_id=12345678, user_id=tanaka_123
+2025-05-20 08:17:45,901 [http-nio-8080-exec-2] INFO  jp.bank.service.AccountService - 口座情報を取得しています: account_id=12345678
+2025-05-20 08:17:46,234 [http-nio-8080-exec-2] INFO  jp.bank.dao.AccountDAO - SQL実行: SELECT * FROM accounts WHERE account_id = ?
+2025-05-20 08:17:46,567 [http-nio-8080-exec-2] INFO  jp.bank.controller.AccountController - 口座残高照会完了: account_id=12345678, balance=125000
+2025-05-20 08:20:12,345 [http-nio-8080-exec-3] INFO  jp.bank.controller.TransferController - 振込処理開始: from_account=12345678, to_account=87654321, amount=50000
+2025-05-20 08:20:12,678 [http-nio-8080-exec-3] INFO  jp.bank.service.TransferService - 振込前残高確認: account_id=12345678
+2025-05-20 08:20:13,012 [http-nio-8080-exec-3] INFO  jp.bank.dao.AccountDAO - SQL実行: SELECT balance FROM accounts WHERE account_id = ?
+2025-05-20 08:20:13,345 [http-nio-8080-exec-3] INFO  jp.bank.service.TransferService - 振込先口座確認: account_id=87654321
+2025-05-20 08:20:13,678 [http-nio-8080-exec-3] INFO  jp.bank.dao.AccountDAO - SQL実行: SELECT * FROM accounts WHERE account_id = ?
+2025-05-20 08:20:14,012 [http-nio-8080-exec-3] INFO  jp.bank.service.TransferService - トランザクション開始: tx_id=TX20250520082014
+2025-05-20 08:20:14,345 [http-nio-8080-exec-3] INFO  jp.bank.dao.TransactionDAO - SQL実行: BEGIN TRANSACTION
+2025-05-20 08:20:14,678 [http-nio-8080-exec-3] INFO  jp.bank.dao.AccountDAO - SQL実行: UPDATE accounts SET balance = balance - ? WHERE account_id = ?
+2025-05-20 08:20:15,012 [http-nio-8080-exec-3] INFO  jp.bank.dao.AccountDAO - SQL実行: UPDATE accounts SET balance = balance + ? WHERE account_id = ?
+2025-05-20 08:20:15,345 [http-nio-8080-exec-3] INFO  jp.bank.dao.TransactionDAO - SQL実行: INSERT INTO transactions (tx_id, from_account, to_account, amount, timestamp) VALUES (?, ?, ?, ?, ?)
+2025-05-20 08:20:15,678 [http-nio-8080-exec-3] INFO  jp.bank.dao.TransactionDAO - SQL実行: COMMIT
+2025-05-20 08:20:16,012 [http-nio-8080-exec-3] INFO  jp.bank.service.TransferService - トランザクション完了: tx_id=TX20250520082014
+2025-05-20 08:20:16,345 [http-nio-8080-exec-3] INFO  jp.bank.controller.TransferController - 振込処理完了: tx_id=TX20250520082014
+2025-05-20 08:25:45,678 [http-nio-8080-exec-4] ERROR jp.bank.controller.TransferController - 振込処理エラー: from_account=12345678, to_account=99999999, amount=30000
+2025-05-20 08:25:45,901 [http-nio-8080-exec-4] INFO  jp.bank.service.TransferService - 振込前残高確認: account_id=12345678
+2025-05-20 08:25:46,234 [http-nio-8080-exec-4] INFO  jp.bank.dao.AccountDAO - SQL実行: SELECT balance FROM accounts WHERE account_id = ?
+2025-05-20 08:25:46,567 [http-nio-8080-exec-4] INFO  jp.bank.service.TransferService - 振込先口座確認: account_id=99999999
+2025-05-20 08:25:46,901 [http-nio-8080-exec-4] INFO  jp.bank.dao.AccountDAO - SQL実行: SELECT * FROM accounts WHERE account_id = ?
+2025-05-20 08:25:47,234 [http-nio-8080-exec-4] ERROR jp.bank.service.TransferService - 振込先口座が存在しません: account_id=99999999
+2025-05-20 08:25:47,567 [http-nio-8080-exec-4] ERROR jp.bank.controller.TransferController - 振込処理失敗: AccountNotFoundException: 指定された口座が見つかりません
+2025-05-20 08:30:12,345 [http-nio-8080-exec-5] WARN  jp.bank.security.LoginMonitor - 複数回のログイン失敗を検出: user_id=yamada_456, attempts=3
+2025-05-20 08:30:12,678 [http-nio-8080-exec-5] INFO  jp.bank.security.LoginMonitor - アカウントを一時的にロックします: user_id=yamada_456, lock_duration=15min
+2025-05-20 08:30:13,012 [http-nio-8080-exec-5] INFO  jp.bank.dao.UserDAO - SQL実行: UPDATE users SET account_status = 'LOCKED', lock_until = ? WHERE user_id = ?
+2025-05-20 08:35:23,456 [background-task-1] INFO  jp.bank.batch.DailyReportGenerator - 日次レポート生成を開始します
+2025-05-20 08:35:23,789 [background-task-1] INFO  jp.bank.batch.DailyReportGenerator - トランザクションデータを取得しています: date=2025-05-19
+2025-05-20 08:35:24,123 [background-task-1] INFO  jp.bank.dao.ReportDAO - SQL実行: SELECT * FROM transactions WHERE DATE(timestamp) = ?
+2025-05-20 08:35:25,456 [background-task-1] INFO  jp.bank.batch.DailyReportGenerator - 取得したトランザクション数: 1245
+2025-05-20 08:35:26,789 [background-task-1] INFO  jp.bank.batch.DailyReportGenerator - レポートファイル生成: /reports/daily/transaction_report_20250519.xlsx
+2025-05-20 08:35:28,123 [background-task-1] INFO  jp.bank.batch.DailyReportGenerator - 日次レポート生成が完了しました
+2025-05-20 08:40:45,678 [system-monitor] WARN  jp.bank.monitor.SystemMonitor - データベース接続プールの使用率が高くなっています: usage=85%
+2025-05-20 08:40:46,012 [system-monitor] INFO  jp.bank.monitor.SystemMonitor - 接続プールサイズを拡張します: current=20, new=30
+2025-05-20 08:45:12,345 [http-nio-8080-exec-6] ERROR jp.bank.dao.AccountDAO - データベースクエリ実行中にエラーが発生しました
+2025-05-20 08:45:12,678 [http-nio-8080-exec-6] ERROR jp.bank.dao.AccountDAO - java.sql.SQLException: Connection timed out
+	at jp.bank.dao.AccountDAO.getAccountDetails(AccountDAO.java:142)
+	at jp.bank.service.AccountService.getAccountInfo(AccountService.java:78)
+	at jp.bank.controller.AccountController.getAccountDetails(AccountController.java:56)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+2025-05-20 08:45:13,012 [http-nio-8080-exec-6] WARN  jp.bank.service.AccountService - データベース接続エラーのため、リトライを実行します: attempt=1
+2025-05-20 08:45:14,345 [http-nio-8080-exec-6] INFO  jp.bank.dao.AccountDAO - SQL実行: SELECT * FROM accounts WHERE account_id = ?
+2025-05-20 08:45:14,678 [http-nio-8080-exec-6] INFO  jp.bank.service.AccountService - リトライ成功: 口座情報を取得しました
+2025-05-20 08:50:23,456 [cleanup-thread] INFO  jp.bank.maintenance.SessionCleaner - 期限切れセッションのクリーンアップを開始します
+2025-05-20 08:50:23,789 [cleanup-thread] INFO  jp.bank.dao.SessionDAO - SQL実行: DELETE FROM sessions WHERE expiry < ?
+2025-05-20 08:50:24,123 [cleanup-thread] INFO  jp.bank.maintenance.SessionCleaner - 削除されたセッション数: 78
+2025-05-20 08:55:45,678 [http-nio-8080-exec-7] INFO  jp.bank.controller.LogoutController - ユーザーログアウト: user_id=tanaka_123
+2025-05-20 08:55:46,012 [http-nio-8080-exec-7] INFO  jp.bank.service.AuthenticationService - セッションを無効化します: session_id=SES123456789
+2025-05-20 08:55:46,345 [http-nio-8080-exec-7] INFO  jp.bank.dao.SessionDAO - SQL実行: UPDATE sessions SET status = 'INVALID' WHERE session_id = ?
+2025-05-20 08:55:46,678 [http-nio-8080-exec-7] INFO  jp.bank.controller.LogoutController - ログアウト完了: user_id=tanaka_123
+2025-05-20 09:00:12,345 [shutdown-hook] INFO  jp.bank.app.BankingApplication - アプリケーションのシャットダウンを開始します
+2025-05-20 09:00:12,678 [shutdown-hook] INFO  jp.bank.app.DatabaseConnector - アクティブなトランザクションをコミットしています
+2025-05-20 09:00:13,012 [shutdown-hook] INFO  jp.bank.app.DatabaseConnector - データベース接続をクローズしています
+2025-05-20 09:00:13,345 [shutdown-hook] INFO  jp.bank.app.BankingApplication - アプリケーションのシャットダウンが完了しました
