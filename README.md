@@ -40,19 +40,19 @@ mkdir output\updated
 ### 运行文档转换模块
 
 ```bash
-python run_converter.py test_data\documents\pdf\japanese_financial_holding_groups.pdf
+python run_converter.py test_data/documents/pdf/japanese_financial_holding_groups.pdf
 ```
 
 ### 运行错误分析模块
 
 ```bash
-python run_analyzer.py test_data\logs\sample_java_log.log
+python run_analyzer.py test_data/logs/sample_java_log.log
 ```
 
 ### 运行需求变更自动化处理模块
 
 ```bash
-python run_updater.py test_data\source_code\bank_manage test_data\documents\word\financial_system_design_doc_ja.md
+python run_updater.py test_data/source_code/bank_manage test_data/documents/word/financial_system_design_doc_ja.md
 ```
 
 ## 文件结构
